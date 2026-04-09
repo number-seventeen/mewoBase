@@ -1,0 +1,297 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root, .theme-ravenclaw {
+    /* Ravenclaw: Blue & Bronze (Dark Academia) */
+    --background: 222 47% 6%; /* Deep night sky */
+    --foreground: 210 40% 98%;
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%; /* Ravenclaw Blue */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 45 93% 47%; /* Bronze */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 217 91% 60%;
+    --radius: 0.75rem;
+  }
+
+  .theme-gryffindor {
+    /* Gryffindor: Red & Gold */
+    --background: 350 40% 6%; /* Deep crimson night */
+    --foreground: 210 40% 98%;
+    --card: 350 40% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 350 40% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 348 83% 47%; /* Gryffindor Red */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 45 93% 47%; /* Gold */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 350 32% 17%;
+    --muted-foreground: 350 20% 65%;
+    --accent: 348 83% 47%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 350 32% 17%;
+    --input: 350 32% 17%;
+    --ring: 348 83% 47%;
+    --radius: 0.75rem;
+  }
+
+  .theme-slytherin {
+    /* Slytherin: Green & Silver */
+    --background: 140 40% 6%; /* Deep dungeon green */
+    --foreground: 210 40% 98%;
+    --card: 140 40% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 140 40% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 142 71% 35%; /* Slytherin Green */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 0 0% 75%; /* Silver */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 140 32% 17%;
+    --muted-foreground: 140 20% 65%;
+    --accent: 142 71% 35%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 140 32% 17%;
+    --input: 140 32% 17%;
+    --ring: 142 71% 35%;
+    --radius: 0.75rem;
+  }
+
+  .theme-hufflepuff {
+    /* Hufflepuff: Yellow & Black */
+    --background: 40 40% 6%; /* Deep earthy brown/black */
+    --foreground: 210 40% 98%;
+    --card: 40 40% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 40 40% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 45 93% 47%; /* Hufflepuff Yellow */
+    --primary-foreground: 0 0% 10%;
+    --secondary: 0 0% 20%; /* Black/Dark Gray */
+    --secondary-foreground: 210 40% 98%;
+    --muted: 40 32% 17%;
+    --muted-foreground: 40 20% 65%;
+    --accent: 45 93% 47%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 40 32% 17%;
+    --input: 40 32% 17%;
+    --ring: 45 93% 47%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-transparent text-foreground font-serif tracking-normal transition-colors duration-500;
+    background-color: hsl(var(--background) / 1); /* solid theme background since MagicalBackground handles ambient light */
+    min-height: 100vh;
+    overflow: hidden; /* To prevent scrollbar on body */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-normal;
+  }
+}
+
+/* Sci-Fi Animations & Glows */
+.neon-glow {
+  box-shadow: 0 0 15px hsl(var(--primary) / 0.3), inset 0 0 10px hsl(var(--primary) / 0.1);
+}
+
+/* Radix UI Overrides */
+[data-radix-collection-item][data-state="checked"] {
+  color: hsl(var(--primary)) !important;
+  font-weight: 700 !important;
+}
+
+.neon-border {
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+.glass-panel {
+  background: hsl(var(--background) / 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius);
+  transition: background-color 0.5s ease, border-color 0.5s ease;
+  /* The solid border is removed so it doesn't conflict with the glowing conic border */
+}
+
+/* Custom scrollbar for Electron */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* ========================================================= */
+/* SCi-Fi Card 3D & Dynamic Light Effect System */
+/* ========================================================= */
+.sci-fi-card {
+  --mouse-x: -1000px;
+  --mouse-y: -1000px;
+}
+
+/* Moving Light Border Effect (Conic Gradient) */
+.sci-fi-card::after {
+  inset: -1px;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--border-angle, 0deg) at 50% 50%,
+    transparent 0%,
+    hsl(var(--primary) / 0.1) 20%,
+    hsl(var(--primary) / 0.8) 40%,
+    hsl(var(--secondary) / 0.8) 50%,
+    hsl(var(--primary) / 0.8) 60%,
+    hsl(var(--primary) / 0.1) 80%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  /* Keep a subtle static border when not hovering, so the card has an outline */
+  background-color: rgba(255, 255, 255, 0.05);
+  opacity: 1; /* Always show the pseudo-element to display the default border */
+  will-change: opacity, transform;
+}
+
+/* Base Card Pseudo-elements for Glow and Border */
+.sci-fi-card::before,
+.sci-fi-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.5s ease;
+}
+
+.sci-fi-card:not(:hover)::after {
+  /* When not hovering, turn off the moving gradient and just show the solid subtle border */
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Ensure CSS Custom Property can be animated */
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 5px hsl(var(--primary) / 0.3)); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 15px hsl(var(--secondary) / 0.6)); }
+}
+
+@keyframes border-rotate {
+  0% { --border-angle: 0turn; }
+  100% { --border-angle: 1turn; }
+}
+
+.sci-fi-card:hover::after {
+  opacity: 1;
+  animation: border-rotate 3s linear infinite;
+}
+
+/* Animation Modes (Overrides) */
+.sci-fi-card.anim-scan:hover::after {
+  animation: border-rotate 3s linear infinite;
+}
+
+.sci-fi-card.anim-pulse:hover::after {
+  animation: border-rotate 4s ease-in-out infinite, pulse-glow 2.5s ease-in-out infinite;
+}
+
+.sci-fi-card.anim-wave:hover::after {
+  animation: border-rotate 1.5s linear infinite;
+}
+
+/* ========================================================= */
+/* Magical Animations & Effects */
+/* ========================================================= */
+
+@keyframes float-particle {
+  0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-20px) rotate(180deg); opacity: 0; }
+}
+
+.magic-particle {
+  position: absolute;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.8) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float-particle 3s ease-in-out infinite;
+  filter: blur(1px);
+}
+
+@keyframes wand-flicker {
+  0%, 100% { opacity: 0.8; filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.6)) brightness(1); transform: scale(1); }
+  50% { opacity: 1; filter: drop-shadow(0 0 20px hsl(var(--primary) / 0.9)) brightness(1.3); transform: scale(1.05); }
+}
+
+.wand-glow {
+  animation: wand-flicker 2s ease-in-out infinite;
+}
+
+@keyframes potion-bubble {
+  0% { transform: scale(0.5) translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: scale(1.2) translateY(-30px); opacity: 0; }
+}
+
+.potion-bubble {
+  position: absolute;
+  border: 1px solid hsl(var(--primary) / 0.6);
+  background: radial-gradient(circle at 30% 30%, hsl(var(--secondary) / 0.4), transparent);
+  border-radius: 50%;
+  animation: potion-bubble 2.5s ease-in infinite;
+}
+
+@keyframes fire-flicker {
+  0%, 100% { transform: scaleY(1) rotate(-2deg); opacity: 0.9; filter: drop-shadow(0 0 10px hsl(var(--primary) / 0.8)); }
+  25% { transform: scaleY(1.1) rotate(2deg); opacity: 1; filter: drop-shadow(0 0 15px hsl(var(--secondary) / 0.9)); }
+  50% { transform: scaleY(0.95) rotate(-1deg); opacity: 0.8; filter: drop-shadow(0 0 12px hsl(var(--primary) / 0.7)); }
+  75% { transform: scaleY(1.05) rotate(1deg); opacity: 0.95; filter: drop-shadow(0 0 18px hsl(var(--secondary) / 0.8)); }
+}
+
+.goblet-fire {
+  transform-origin: bottom center;
+  animation: fire-flicker 1.5s ease-in-out infinite alternate;
+}
