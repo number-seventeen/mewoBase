@@ -68,16 +68,15 @@ export function Home() {
         </div>
         <Button 
           onClick={() => setIsCreating(true)} 
-          className="gap-2 shadow-sm rounded-full px-5 bg-primary text-white border-none hover:bg-primary/90 transition-all duration-300 opacity-100"
-          style={{ backgroundColor: 'hsl(var(--primary))' }}
+          className="gap-2 px-5 transition-all duration-300 opacity-100 bg-transparent text-primary hover:text-primary/80 border-none shadow-none"
         >
-          <Plus size={18} className="text-white" />
-          <span className="text-white font-medium">Create New</span>
+          <Plus size={18} />
+          <span className="font-bold">Create New</span>
         </Button>
       </div>
 
       {isCreating && (
-        <Card animationMode="wave" className="glass-panel shadow-sm border-border animate-in fade-in slide-in-from-top-4 duration-300">
+        <Card animationMode="wave" className="bg-transparent border-none shadow-none animate-in fade-in slide-in-from-top-4 duration-300">
           <CardHeader>
             <CardTitle>Create Knowledge Base</CardTitle>
             <CardDescription>Setup a new isolated context for your AI agent</CardDescription>
@@ -88,7 +87,7 @@ export function Home() {
               <Input 
                 placeholder="e.g. Project Documents" 
                 value={newName} 
-                className="bg-black/20 border-border/50 shadow-sm backdrop-blur-sm"
+                className="bg-transparent border-none shadow-none"
                 onChange={(e) => setNewName(e.target.value)} 
               />
             </div>
@@ -97,19 +96,18 @@ export function Home() {
               <Input 
                 placeholder="What is this knowledge base for?" 
                 value={newDesc} 
-                className="bg-black/20 border-border/50 shadow-sm min-h-[100px] backdrop-blur-sm"
+                className="bg-transparent border-none shadow-none min-h-[100px]"
                 onChange={(e) => setNewDesc(e.target.value)} 
               />
             </div>
           </CardContent>
-          <CardFooter className="flex justify-end gap-3 bg-muted/20 border-t border-border pt-4">
-            <Button variant="ghost" onClick={() => setIsCreating(false)}>Cancel</Button>
+          <CardFooter className="flex justify-end gap-3 bg-transparent pt-4">
+            <Button variant="ghost" className="bg-transparent shadow-none border-none text-foreground hover:text-primary" onClick={() => setIsCreating(false)}>Cancel</Button>
             <Button 
               onClick={handleCreate} 
-              className="shadow-sm bg-primary text-white border-none hover:bg-primary/90 transition-all duration-300 opacity-100"
-              style={{ backgroundColor: 'hsl(var(--primary))' }}
+              className="bg-transparent shadow-none border-none text-primary hover:text-primary/80 transition-all duration-300 opacity-100"
             >
-              <span className="text-white font-medium">Create</span>
+              <span className="font-bold">Create</span>
             </Button>
           </CardFooter>
         </Card>
@@ -126,7 +124,7 @@ export function Home() {
           </div>
         </div>
       ) : knowledgeBases.length === 0 && !isCreating ? (
-        <div className="text-center py-24 glass-panel rounded-2xl border border-dashed border-border/50 shadow-sm flex flex-col items-center justify-center relative overflow-hidden">
+        <div className="text-center py-24 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden bg-transparent border-none shadow-none">
           {/* Subtle magical glow in the background */}
           <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none"></div>
           <div className="relative w-48 h-48 mb-6 opacity-90 z-10 hover:scale-105 transition-transform duration-700">
@@ -137,36 +135,34 @@ export function Home() {
             You haven't initialized any magical libraries yet. Create your first knowledge base to store your spells and documents.
           </p>
           <Button 
-            onClick={() => setIsCreating(true)} 
-            className="gap-2 shadow-md rounded-full px-8 relative z-10 bg-primary hover:bg-primary/90 text-white border-none transition-all duration-300 opacity-100"
-            style={{ backgroundColor: 'hsl(var(--primary))' }}
-          >
-            <Plus size={18} className="text-white" />
-            <span className="text-white font-medium">Initialize Magic Base</span>
-          </Button>
+              onClick={() => setIsCreating(true)} 
+              className="gap-2 rounded-full px-8 relative z-10 bg-transparent text-primary hover:text-primary/80 border-none shadow-none transition-all duration-300 opacity-100"
+            >
+              <Plus size={18} />
+              <span className="font-bold">Initialize Magic Base</span>
+            </Button>
         </div>
       ) : (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
           {knowledgeBases.map((kb, index) => (
             <Card 
               key={kb.id} 
-              animationMode={index % 3 === 0 ? 'scan' : index % 3 === 1 ? 'pulse' : 'wave'}
-              className="cursor-pointer border border-border/20 hover:border-primary/50 transition-all duration-300 glass-panel group flex flex-col min-h-[170px] relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_8px_30px_-5px_hsl(var(--primary)/0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              animationMode="none"
+              className="cursor-pointer border-none bg-transparent shadow-none transition-all duration-300 group flex flex-col min-h-[170px] relative overflow-hidden hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-0"
               onClick={() => navigate(`/knowledge/${kb.id}`)}
               role="article"
               tabIndex={0}
               aria-labelledby={`kb-title-${kb.id}`}
             >
               {/* Sci-fi Background decoration */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_hsl(var(--primary)/0.15),_transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_hsl(var(--primary)/0.15),_transparent_50%)] opacity-0 transition-opacity duration-700 pointer-events-none"></div>
               
               <CardContent className="p-6 flex-1 flex flex-col relative z-10">
                 {/* Header Row */}
                 <div className="flex justify-between items-start gap-4 mb-1">
                   <div className="flex items-start gap-4 min-w-0">
-                    <div className="w-12 h-12 rounded-full bg-background border-2 border-primary/30 flex shrink-0 items-center justify-center shadow-[inset_0_0_12px_hsl(var(--primary)/0.2)] group-hover:border-primary/60 group-hover:bg-primary/10 group-hover:shadow-[0_0_15px_hsl(var(--primary)/0.3)] transition-all duration-300 group-hover:scale-105 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_hsl(var(--primary)/0.2)_0%,_transparent_70%)]"></div>
-                      <Library size={22} className="text-primary relative z-10 drop-shadow-[0_2px_4px_hsl(var(--primary)/0.5)]" />
+                    <div className="flex shrink-0 items-center justify-center relative overflow-hidden">
+                      <Library size={28} className="text-primary relative z-10" />
                     </div>
                     <div className="flex flex-col min-w-0 pt-1.5">
                       <h3 id={`kb-title-${kb.id}`} className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors truncate">
@@ -176,7 +172,7 @@ export function Home() {
                   </div>
                   
                   <div className="flex items-center gap-2 shrink-0">
-                    <div className="flex items-center gap-1.5 bg-[#10b981]/10 px-2.5 py-1 rounded-full border border-[#10b981]/30 shadow-[inset_0_0_8px_rgba(16,185,129,0.1)]">
+                    <div className="flex items-center gap-1.5 bg-transparent px-2.5 py-1 rounded-full border-none shadow-none">
                       <span className="relative flex h-1.5 w-1.5">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#10b981]"></span>
@@ -186,7 +182,7 @@ export function Home() {
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="h-8 w-8 text-muted-foreground/60 transition-all hover:text-white hover:bg-white/10 rounded-full"
+                      className="h-8 w-8 text-muted-foreground/60 transition-all hover:text-destructive bg-transparent border-none shadow-none"
                       onClick={(e) => { e.stopPropagation(); handleDelete(kb.id, e); }}
                       aria-label={`Delete knowledge base ${kb.name}`}
                     >
@@ -203,20 +199,20 @@ export function Home() {
                 </div>
                 
                 {/* Footer */}
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-primary/10">
+                <div className="flex items-center justify-between mt-auto pt-4 bg-transparent">
                   <div className="flex items-center gap-2">
-                    <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-primary/20 text-[11px] text-primary/90 font-medium bg-primary/5 backdrop-blur-sm group-hover:bg-primary/10 transition-colors">
-                      <Zap size={12} className="text-secondary/90" /> 
+                    <span className="flex items-center gap-1.5 text-[11px] text-primary/90 font-bold bg-transparent border-none shadow-none">
+                      <Zap size={14} className="text-secondary/90" /> 
                       Vectorized
                     </span>
-                    <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-primary/20 text-[11px] text-primary/90 font-medium bg-primary/5 backdrop-blur-sm group-hover:bg-primary/10 transition-colors">
-                      <Cpu size={12} className="text-secondary/90" /> 
+                    <span className="flex items-center gap-1.5 text-[11px] text-primary/90 font-bold bg-transparent border-none shadow-none">
+                      <Cpu size={14} className="text-secondary/90" /> 
                       Local Engine
                     </span>
                   </div>
 
                   <div className="flex items-center gap-4 text-xs font-medium text-muted-foreground">
-                    <div className="flex items-center gap-1.5 text-[12px] font-bold text-secondary/80 group-hover:text-secondary transition-colors bg-secondary/10 px-3 py-1 rounded-full border border-secondary/20">
+                    <div className="flex items-center gap-1.5 text-[12px] font-bold text-secondary/80 group-hover:text-secondary transition-colors bg-transparent border-none shadow-none">
                       <FileText size={14} />
                       <span>{kb.documentCount || 0} Scrolls</span>
                     </div>

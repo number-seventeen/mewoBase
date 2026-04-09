@@ -13,7 +13,7 @@ interface Particle {
 }
 
 export const MagicalBackground = () => {
-  const { theme, effectsEnabled } = useTheme();
+  const { theme, effectsEnabled, bgOpacity } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: -1000, y: -1000, isMoving: false });
@@ -52,20 +52,26 @@ export const MagicalBackground = () => {
     window.addEventListener('resize', setCanvasSize);
 
     const isMobile = window.innerWidth < 768;
-    const maxParticles = isMobile ? 30 : 60; // Performance tuning based on device
+    const maxParticles = isMobile ? 10 : 20; // Reduced density for a sparser look
+
+    // Get a specific color (either primary theme color or pure white)
+    const getParticleColor = (primary: string) => {
+      // 50% chance for primary color, 50% chance for white (0 0% 100%)
+      return Math.random() > 0.5 ? primary : '0 0% 100%';
+    };
 
     // Initialize Particles
-    const createParticle = (x?: number, y?: number, specificColor?: string): Particle => {
-      const { primary, secondary } = getThemeColors();
+    const createParticle = (x?: number, y?: number): Particle => {
+      const { primary } = getThemeColors();
       return {
         x: x ?? Math.random() * width,
         y: y ?? Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 1.5 - 0.5, // Bias upwards
-        size: Math.random() * 2 + 0.5,
+        vx: (Math.random() - 0.5) * 0.15, // Extremely slow horizontal drift
+        vy: (Math.random() - 0.5) * 0.4 - 0.1, // Extremely slow upwards drift
+        size: Math.random() * 1.5 + 0.5, // Slightly smaller particles
         life: 0,
-        maxLife: Math.random() * 200 + 100,
-        color: specificColor || (Math.random() > 0.5 ? primary : secondary),
+        maxLife: Math.random() * 500 + 300, // Longer life so they linger beautifully
+        color: getParticleColor(primary),
       };
     };
 
@@ -105,7 +111,8 @@ export const MagicalBackground = () => {
         ctx.fillStyle = `hsla(${p.color} / ${opacity})`;
         ctx.fill();
         ctx.shadowBlur = 10;
-        ctx.shadowColor = `hsl(${p.color})`;
+        // Use a light white/theme color mix for the glow
+        ctx.shadowColor = `hsla(${p.color} / 0.5)`;
       });
       ctx.shadowBlur = 0; // Reset
     };
@@ -126,27 +133,26 @@ export const MagicalBackground = () => {
       }
       
       // Sometimes spawn a particle at mouse
-      if (Math.random() > 0.8 && particlesRef.current.length < maxParticles + 10) {
-        const { primary, secondary } = getThemeColors();
-        particlesRef.current.push(createParticle(e.clientX, e.clientY, Math.random() > 0.5 ? primary : secondary));
+      if (Math.random() > 0.95 && particlesRef.current.length < maxParticles + 5) {
+        particlesRef.current.push(createParticle(e.clientX, e.clientY));
       }
     };
 
     const handleClick = (e: MouseEvent) => {
-      const { primary, secondary } = getThemeColors();
-      // Burst of particles instead of ripples
-      for (let i = 0; i < 15; i++) {
+      const { primary } = getThemeColors();
+      // Reduced burst of particles instead of dense ripples
+      for (let i = 0; i < 6; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 3 + 2;
+        const speed = Math.random() * 2 + 1;
         particlesRef.current.push({
           x: e.clientX,
           y: e.clientY,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          size: Math.random() * 3 + 1,
+          size: Math.random() * 2 + 0.5,
           life: 0,
-          maxLife: Math.random() * 50 + 50,
-          color: Math.random() > 0.5 ? primary : secondary,
+          maxLife: Math.random() * 60 + 40,
+          color: getParticleColor(primary),
         });
       }
     };
@@ -164,12 +170,18 @@ export const MagicalBackground = () => {
 
   if (!effectsEnabled) {
     return (
-      <div className="fixed inset-0 z-[-1] pointer-events-none transition-colors duration-1000 bg-background/80" />
+      <div 
+        className="fixed inset-0 z-[-1] pointer-events-none transition-colors duration-1000 backdrop-blur-md rounded-xl" 
+        style={{ backgroundColor: `hsl(var(--background) / ${bgOpacity / 100})` }}
+      />
     );
   }
 
   return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-background">
+    <div 
+      className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden backdrop-blur-md rounded-xl"
+      style={{ backgroundColor: `hsl(var(--background) / ${bgOpacity / 100})` }}
+    >
       {/* 1. Ambient Background Grid & Static Gradient (Base Layer) */}
       <div 
         className="absolute inset-0 opacity-40 mix-blend-screen transition-all duration-1000"

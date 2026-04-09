@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.get('/:id/messages', (req, res) => {
   try {
     const stmt = db.prepare('SELECT * FROM chat_messages WHERE session_id = ? ORDER BY timestamp ASC');
-    const messages = stmt.all().map((msg: any) => ({
+    const messages = stmt.all(req.params.id).map((msg: any) => ({
       ...msg,
       images: msg.images ? JSON.parse(msg.images) : undefined,
       toolsUsed: msg.tools_used ? JSON.parse(msg.tools_used) : undefined,

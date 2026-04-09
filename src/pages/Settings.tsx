@@ -9,7 +9,7 @@ export function Settings() {
   const [models, setModels] = useState<any[]>([]);
   const [status, setStatus] = useState('checking...');
   const [defaultModel, setDefaultModel] = useState<string | null>(null);
-  const { theme, setTheme, effectsEnabled, setEffectsEnabled } = useTheme();
+  const { theme, setTheme, mode, setMode, effectsEnabled, setEffectsEnabled, bgOpacity, setBgOpacity } = useTheme();
 
   useEffect(() => {
     const checkOllama = async () => {
@@ -46,53 +46,67 @@ export function Settings() {
         <p className="text-muted-foreground mt-1">Configure your local AI environment</p>
       </div>
 
-      <Card animationMode="pulse" className="glass-panel">
+      <Card animationMode="pulse" className="bg-transparent border-none shadow-none">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Wand2 className="text-primary" size={20} />
-            House Selection (Theme)
+            House Selection (Theme) & Lighting
           </CardTitle>
-          <CardDescription>Choose your magical house to customize your interface</CardDescription>
+          <CardDescription>Choose your magical house and preferred lighting to customize your interface</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex flex-col gap-6">
+            {/* Dark/Light Mode Toggle */}
+            <div className="flex justify-center bg-transparent w-fit mx-auto gap-4">
+              <button
+                onClick={() => setMode('light')}
+                className={`px-6 py-2 text-sm font-bold transition-all duration-300 bg-transparent border-none shadow-none ${mode === 'light' ? 'text-primary scale-110' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                Lumos (Light)
+              </button>
+              <button
+                onClick={() => setMode('dark')}
+                className={`px-6 py-2 text-sm font-bold transition-all duration-300 bg-transparent border-none shadow-none ${mode === 'dark' ? 'text-primary scale-110' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                Nox (Dark)
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <button
               onClick={() => setTheme('gryffindor')}
-              className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${theme === 'gryffindor' ? 'border-[#b51c33] bg-[#b51c33]/10 shadow-[0_0_15px_rgba(181,28,51,0.3)]' : 'border-border/50 hover:border-[#b51c33]/50 bg-black/20 hover:bg-[#b51c33]/5'}`}
+              className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all bg-transparent border-none shadow-none ${theme === 'gryffindor' ? 'text-primary scale-110' : 'text-muted-foreground hover:text-foreground'}`}
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#b51c33] to-[#e0a82e] mb-3 shadow-lg"></div>
-              <span className="font-bold tracking-widest text-[#e0a82e]">Gryffindor</span>
-              <span className="text-[10px] text-muted-foreground mt-1">Bravery & Nerve</span>
+              <span className="font-bold tracking-widest uppercase">Gryffindor</span>
+              <span className="text-[10px] mt-1">Bravery & Nerve</span>
             </button>
             <button
               onClick={() => setTheme('slytherin')}
-              className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${theme === 'slytherin' ? 'border-[#1a6e38] bg-[#1a6e38]/10 shadow-[0_0_15px_rgba(26,110,56,0.3)]' : 'border-border/50 hover:border-[#1a6e38]/50 bg-black/20 hover:bg-[#1a6e38]/5'}`}
+              className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all bg-transparent border-none shadow-none ${theme === 'slytherin' ? 'text-primary scale-110' : 'text-muted-foreground hover:text-foreground'}`}
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1a6e38] to-[#cccccc] mb-3 shadow-lg"></div>
-              <span className="font-bold tracking-widest text-[#1a6e38]">Slytherin</span>
-              <span className="text-[10px] text-muted-foreground mt-1">Ambition & Cunning</span>
+              <span className="font-bold tracking-widest uppercase">Slytherin</span>
+              <span className="text-[10px] mt-1">Ambition & Cunning</span>
             </button>
             <button
               onClick={() => setTheme('ravenclaw')}
-              className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${theme === 'ravenclaw' ? 'border-[#224f85] bg-[#224f85]/10 shadow-[0_0_15px_rgba(34,79,133,0.3)]' : 'border-border/50 hover:border-[#224f85]/50 bg-black/20 hover:bg-[#224f85]/5'}`}
+              className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all bg-transparent border-none shadow-none ${theme === 'ravenclaw' ? 'text-primary scale-110' : 'text-muted-foreground hover:text-foreground'}`}
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#224f85] to-[#b38529] mb-3 shadow-lg"></div>
-              <span className="font-bold tracking-widest text-[#508bd6]">Ravenclaw</span>
-              <span className="text-[10px] text-muted-foreground mt-1">Wisdom & Wit</span>
+              <span className="font-bold tracking-widest uppercase">Ravenclaw</span>
+              <span className="text-[10px] mt-1">Wisdom & Wit</span>
             </button>
             <button
               onClick={() => setTheme('hufflepuff')}
-              className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${theme === 'hufflepuff' ? 'border-[#e6b325] bg-[#e6b325]/10 shadow-[0_0_15px_rgba(230,179,37,0.3)]' : 'border-border/50 hover:border-[#e6b325]/50 bg-black/20 hover:bg-[#e6b325]/5'}`}
+              className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all bg-transparent border-none shadow-none ${theme === 'hufflepuff' ? 'text-primary scale-110' : 'text-muted-foreground hover:text-foreground'}`}
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#e6b325] to-[#1f1f1f] mb-3 shadow-lg"></div>
-              <span className="font-bold tracking-widest text-[#e6b325]">Hufflepuff</span>
-              <span className="text-[10px] text-muted-foreground mt-1">Loyalty & Patience</span>
+              <span className="font-bold tracking-widest uppercase">Hufflepuff</span>
+              <span className="text-[10px] mt-1">Loyalty & Patience</span>
             </button>
+          </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card animationMode="scan" className="glass-panel">
+      <Card animationMode="scan" className="bg-transparent border-none shadow-none">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Sparkles className="text-primary" size={20} />
@@ -101,42 +115,94 @@ export function Settings() {
           <CardDescription>Control the intensity of the magical background animations</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between p-4 rounded-xl border border-border/50 bg-black/20 gap-8">
-            <div className="flex-1">
-              <p className="font-medium text-foreground">Enable Ambient Magic</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                Toggles floating particles, mouse halos, water ripples on click, and breathing gradients. Disable to save battery or reduce CPU usage.
-              </p>
+          <div className="flex flex-col gap-6">
+            {/* Ambient Magic Toggle */}
+            <div className="flex items-center justify-between gap-8">
+              <div className="flex-1">
+                <p className="font-medium text-foreground">Enable Ambient Magic</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Toggles floating particles, mouse halos, water ripples on click, and breathing gradients. Disable to save battery or reduce CPU usage.
+                </p>
+              </div>
+              <button
+                onClick={() => setEffectsEnabled(!effectsEnabled)}
+                className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background`}
+                style={{ backgroundColor: effectsEnabled ? 'hsl(var(--primary))' : 'hsl(var(--muted))' }}
+                role="switch"
+                aria-checked={effectsEnabled}
+              >
+                <span className="sr-only">Toggle ambient magic</span>
+                <span
+                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] ring-0 transition-transform duration-300 ease-in-out ${
+                    effectsEnabled ? 'translate-x-5' : 'translate-x-0.5'
+                  }`}
+                />
+              </button>
             </div>
-            <button
-              onClick={() => setEffectsEnabled(!effectsEnabled)}
-              className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background`}
-              style={{ backgroundColor: effectsEnabled ? 'hsl(var(--primary))' : 'hsl(var(--muted))' }}
-              role="switch"
-              aria-checked={effectsEnabled}
-            >
-              <span className="sr-only">Toggle ambient magic</span>
-              <span
-                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] ring-0 transition-transform duration-300 ease-in-out ${
-                  effectsEnabled ? 'translate-x-5' : 'translate-x-0.5'
-                }`}
+
+            <div className="h-px w-full bg-border/30"></div>
+
+            {/* Background Opacity Slider */}
+            <div className="flex flex-col gap-4">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="font-medium text-foreground">Window Transparency</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Adjust the opacity of the main desktop window background. Lower values mean more visibility of your actual desktop.
+                  </p>
+                </div>
+                <div className="bg-primary/10 text-primary px-3 py-1 rounded-md text-sm font-bold border border-primary/20">
+                  {bgOpacity}%
+                </div>
+              </div>
+              <input 
+                type="range" 
+                min="0" 
+                max="100" 
+                value={bgOpacity} 
+                onChange={(e) => setBgOpacity(parseInt(e.target.value, 10))}
+                className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, hsl(var(--primary)) ${bgOpacity}%, hsl(var(--muted)) ${bgOpacity}%)`
+                }}
               />
-            </button>
+              <style dangerouslySetInnerHTML={{__html: `
+                input[type=range]::-webkit-slider-thumb {
+                  -webkit-appearance: none;
+                  appearance: none;
+                  width: 16px;
+                  height: 16px;
+                  border-radius: 50%;
+                  background: hsl(var(--primary));
+                  cursor: pointer;
+                  box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+                }
+                input[type=range]::-moz-range-thumb {
+                  width: 16px;
+                  height: 16px;
+                  border-radius: 50%;
+                  background: hsl(var(--primary));
+                  cursor: pointer;
+                  border: none;
+                  box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+                }
+              `}} />
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card animationMode="scan" className="glass-panel">
+      <Card animationMode="scan" className="bg-transparent border-none shadow-none">
         <CardHeader>
           <CardTitle>Ollama Service</CardTitle>
           <CardDescription>Local LLM engine status</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between gap-8">
+            <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
                 <div className={`w-3 h-3 rounded-full ${status === 'running' ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
-                <span className="font-medium capitalize">{status}</span>
+                <span className="font-medium capitalize text-foreground">{status}</span>
               </div>
               {status !== 'running' && (
                 <p className="text-sm text-muted-foreground">
@@ -192,7 +258,7 @@ export function Settings() {
       </Card>
 
       {status === 'running' && (
-        <Card animationMode="pulse" className="glass-panel">
+        <Card animationMode="pulse" className="bg-transparent border-none shadow-none">
           <CardHeader>
             <CardTitle>Installed Models</CardTitle>
             <CardDescription>Models available for chat and embeddings</CardDescription>
@@ -216,8 +282,8 @@ export function Settings() {
                   return (
                       <div 
                       key={m.name} 
-                      className={`flex justify-between items-center p-4 border rounded-xl backdrop-blur-sm transition-all duration-300 border-border/50 bg-black/20 ${
-                        isDefault ? 'transform-none' : 'hover:bg-black/40 hover:border-primary/30'
+                      className={`flex justify-between items-center p-4 border rounded-xl backdrop-blur-sm transition-all duration-300 border-border/50 bg-transparent ${
+                        isDefault ? 'transform-none' : 'hover:bg-black/20 hover:border-primary/30'
                       }`}
                     >
                       <div className="flex items-center gap-4">

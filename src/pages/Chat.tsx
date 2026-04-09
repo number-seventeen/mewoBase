@@ -66,6 +66,10 @@ export function Chat() {
   const loadConversation = async (id: string) => {
     try {
       const res = await fetch(`http://localhost:3001/api/conversations/${id}/messages`);
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Failed to load conversation messages');
+      }
       const data = await res.json();
       setMessages(data);
       setCurrentConversationId(id);
@@ -190,13 +194,12 @@ export function Chat() {
   return (
     <div className="flex h-full gap-6 w-full max-w-full px-6 py-6">
       {/* Sidebar for Conversations */}
-      <div className="w-64 flex-shrink-0 flex flex-col gap-4 glass-panel rounded-2xl p-4 border border-border/20 bg-background/40 backdrop-blur-md shadow-[0_4px_20px_-5px_hsl(var(--primary)/0.15)]">
+      <div className="w-64 flex-shrink-0 flex flex-col gap-4 p-4">
         <Button 
           onClick={startNewConversation} 
-          className="w-full gap-2 rounded-xl shadow-md hover:shadow-lg transition-all bg-primary hover:bg-primary/90 text-white"
-          style={{ backgroundColor: 'hsl(var(--primary))' }}
+          className="w-full gap-2 transition-all bg-transparent text-primary hover:text-primary/80 border-none shadow-none"
         >
-          <Plus size={18} /> New Chat
+          <Plus size={18} /> <span className="font-bold">New Chat</span>
         </Button>
         <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pl-1 mt-2">Recent Magic</div>
         <div className="flex-1 overflow-y-auto space-y-2 no-scrollbar -mx-2 px-2">
@@ -207,10 +210,10 @@ export function Chat() {
               <div 
                 key={conv.id} 
                 onClick={() => loadConversation(conv.id)} 
-                className={`group flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all duration-300 border ${
+                className={`group flex items-center justify-between p-3 cursor-pointer transition-all duration-300 border-none shadow-none bg-transparent ${
                   currentConversationId === conv.id 
-                    ? 'bg-primary/10 border-primary/30 text-primary' 
-                    : 'bg-transparent border-transparent hover:bg-black/20 hover:border-border/30 text-foreground/80'
+                    ? 'text-primary' 
+                    : 'text-foreground/80 hover:text-primary/80'
                 }`}
               >
                 <div className="flex items-center gap-3 overflow-hidden">
@@ -235,14 +238,12 @@ export function Chat() {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col gap-6 min-w-0 h-full">
         {/* Top Bar for Selection */}
-        <div className="flex items-center justify-between glass-panel p-5 rounded-2xl border border-border/20 bg-background/60 backdrop-blur-md shadow-[0_4px_20px_-5px_hsl(var(--primary)/0.15)] relative overflow-hidden shrink-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,_hsl(var(--primary)/0.05),_transparent)] pointer-events-none"></div>
+        <div className="flex items-center justify-between p-5 rounded-2xl bg-transparent border-none shadow-none relative shrink-0">
         <div className="flex items-center gap-4 relative z-10">
           <div 
-            className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center border-none"
-            style={{ backgroundColor: 'hsl(var(--primary))' }}
+            className="flex items-center justify-center border-none shadow-none bg-transparent"
           >
-            <Wand2 size={24} className="text-white drop-shadow-[0_0_8px_hsl(var(--primary)/0.8)]" />
+            <Wand2 size={28} className="text-primary" />
           </div>
           <div>
             <h2 className="font-bold text-xl leading-tight tracking-tight text-foreground">Magical Assistant</h2>
@@ -250,13 +251,13 @@ export function Chat() {
           </div>
         </div>
         <div className="flex items-center gap-3 relative z-10">
-          <Database size={16} className="text-primary/70" />
+          <Database size={16} className="text-primary" />
           <div className="w-[280px]">
             <Select value={selectedKb} onValueChange={setSelectedKb}>
-              <SelectTrigger className="w-full bg-background/50 border-primary/20 hover:border-primary/50 transition-colors h-10 rounded-xl focus:ring-primary/30">
+              <SelectTrigger className="w-full bg-transparent border-none shadow-none text-primary hover:text-primary/80 transition-colors h-10">
                 <SelectValue placeholder="No Magic Base Selected (Optional)" />
               </SelectTrigger>
-              <SelectContent className="bg-background/95 backdrop-blur-xl border-primary/20">
+              <SelectContent className="bg-transparent backdrop-blur-xl border-none shadow-none">
                 <SelectItem value="none" className="focus:bg-primary/10">No Magic Base Selected</SelectItem>
                 {knowledgeBases.map(kb => (
                   <SelectItem key={kb.id} value={kb.id} className="focus:bg-primary/10 font-medium">
@@ -270,8 +271,7 @@ export function Chat() {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col glass-panel rounded-2xl shadow-[0_8px_30px_-5px_hsl(var(--primary)/0.15)] border border-border/20 bg-background/40 backdrop-blur-md overflow-hidden relative">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_hsl(var(--primary)/0.05),_transparent_80%)] pointer-events-none"></div>
+      <div className="flex-1 flex flex-col bg-transparent border-none shadow-none overflow-hidden relative">
         <div className="flex-1 overflow-y-auto no-scrollbar p-6 space-y-6 relative z-10">
           {messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-muted-foreground relative overflow-hidden group">
@@ -286,14 +286,12 @@ export function Chat() {
             messages.map(msg => (
               <div key={msg.id} className={`flex gap-4 animate-in slide-in-from-bottom-2 fade-in duration-300 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                 <div 
-                  className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-none ${msg.role === 'user' ? 'bg-primary text-white' : 'bg-primary/20 border-2 border-secondary/30 text-secondary shadow-[0_0_10px_hsl(var(--primary)/0.2)]'}`}
-                  style={msg.role === 'user' ? { backgroundColor: 'hsl(var(--primary))' } : {}}
+                  className="flex items-center justify-center shrink-0 border-none bg-transparent"
                 >
-                  {msg.role === 'user' ? <User size={18} className="drop-shadow-sm text-white" /> : <Wand2 size={18} className="text-secondary drop-shadow-[0_0_8px_hsl(var(--secondary)/0.8)]" />}
+                  {msg.role === 'user' ? <User size={24} className="text-primary" /> : <Wand2 size={24} className="text-primary" />}
                 </div>
                 <div 
-                  className={`max-w-[80%] px-6 py-4 shadow-md ${msg.role === 'user' ? 'bg-primary text-white rounded-2xl rounded-tr-sm border-none' : 'bg-background/80 backdrop-blur-xl border border-primary/20 text-foreground rounded-2xl rounded-tl-sm'}`}
-                  style={msg.role === 'user' ? { backgroundColor: 'hsl(var(--primary))' } : {}}
+                  className={`max-w-[80%] px-6 py-4 shadow-none bg-transparent border-none ${msg.role === 'user' ? 'text-primary' : 'text-foreground'}`}
                 >
                   {msg.images && msg.images.length > 0 && (
                     <div className="flex gap-2 flex-wrap mb-3">
@@ -302,11 +300,11 @@ export function Chat() {
                       ))}
                     </div>
                   )}
-                  <div className={`prose dark:prose-invert prose-sm max-w-none ${msg.role === 'user' ? 'prose-p:text-white text-white font-medium' : 'prose-p:text-foreground text-foreground'}`}>
+                  <div className={`prose dark:prose-invert prose-sm max-w-none ${msg.role === 'user' ? 'prose-p:text-primary text-primary font-medium' : 'prose-p:text-foreground text-foreground'}`}>
                     {msg.toolsUsed && msg.toolsUsed.length > 0 && (
                       <div className="flex flex-col gap-2 mb-4">
                         {msg.toolsUsed.map((tool, i) => (
-                          <div key={i} className="flex items-start gap-2 bg-background/50 border border-primary/20 rounded-lg p-2.5 text-xs text-muted-foreground shadow-sm">
+                          <div key={i} className="flex items-start gap-2 bg-transparent border-none p-2.5 text-xs text-muted-foreground shadow-none">
                             <Terminal size={14} className="text-secondary mt-0.5 shrink-0" />
                             <div className="flex-1 overflow-hidden">
                               <span className="font-semibold text-primary/80">Used magic: {tool.name}</span>
@@ -332,15 +330,14 @@ export function Chat() {
           )}
           {loading && (
             <div className="flex gap-4 animate-in fade-in duration-300">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-primary/20 border-2 border-secondary/30 text-secondary shadow-[0_0_10px_hsl(var(--primary)/0.2)]">
-                <Wand2 size={18} className="text-secondary drop-shadow-[0_0_8px_hsl(var(--secondary)/0.8)] animate-pulse" />
+              <div className="flex items-center justify-center shrink-0 bg-transparent border-none shadow-none">
+                <Wand2 size={24} className="text-primary animate-pulse" />
               </div>
-              <div className="bg-background/80 backdrop-blur-xl border border-primary/20 text-foreground rounded-2xl rounded-tl-sm px-5 py-4 flex items-center gap-2 relative overflow-hidden shadow-sm">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,_hsl(var(--primary)/0.1),_transparent_60%)] animate-pulse pointer-events-none"></div>
+              <div className="bg-transparent border-none text-foreground px-5 py-4 flex items-center gap-2 relative overflow-hidden shadow-none">
                 <div className="flex gap-1.5 relative z-10">
-                  <div className="w-2 h-2 rounded-full bg-secondary animate-bounce shadow-[0_0_8px_hsl(var(--secondary)/0.8)]" style={{ animationDelay: '0ms' }}></div>
-                  <div className="w-2 h-2 rounded-full bg-secondary animate-bounce shadow-[0_0_8px_hsl(var(--secondary)/0.8)]" style={{ animationDelay: '150ms' }}></div>
-                  <div className="w-2 h-2 rounded-full bg-secondary animate-bounce shadow-[0_0_8px_hsl(var(--secondary)/0.8)]" style={{ animationDelay: '300ms' }}></div>
+                  <div className="w-2 h-2 rounded-full bg-primary animate-bounce shadow-none" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 rounded-full bg-primary animate-bounce shadow-none" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 rounded-full bg-primary animate-bounce shadow-none" style={{ animationDelay: '300ms' }}></div>
                 </div>
               </div>
             </div>
@@ -348,7 +345,7 @@ export function Chat() {
           <div ref={messagesEndRef} />
         </div>
         
-        <div className="p-5 border-t border-border/20 bg-background/40 backdrop-blur-xl flex flex-col gap-3 relative z-10">
+        <div className="p-5 border-none bg-transparent flex flex-col gap-3 relative z-10">
           {tempFiles.length > 0 && (
             <div className="flex gap-2 flex-wrap animate-in slide-in-from-bottom-2">
               {tempFiles.map((f, i) => {
@@ -393,18 +390,16 @@ export function Chat() {
             <Button 
               variant="outline" 
               size="icon" 
-              className="shrink-0 h-[52px] w-[52px] text-white border-none rounded-full shadow-[0_4px_15px_-3px_hsl(var(--primary)/0.6)] hover:shadow-[0_6px_20px_-3px_hsl(var(--primary)/0.8)] hover:-translate-y-0.5 transition-all duration-300 opacity-100"
-              style={{ backgroundColor: 'hsl(var(--primary))' }}
+              className="shrink-0 h-[52px] w-[52px] text-primary border-none bg-transparent shadow-none hover:text-primary/80 transition-all duration-300 opacity-100"
               onClick={() => fileInputRef.current?.click()}
               disabled={!selectedKb}
               aria-label="Attach magical documents"
               title="Attach scroll or image"
             >
-              <Paperclip size={20} className="drop-shadow-md text-white" />
+              <Paperclip size={24} />
             </Button>
             
             <div className="flex-1 relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/5 to-primary/10 rounded-2xl blur-md opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
               <textarea 
                 value={input} 
                 onChange={e => setInput(e.target.value)} 
@@ -415,7 +410,7 @@ export function Chat() {
                   }
                 }}
                 placeholder={selectedKb && selectedKb !== 'none' ? "Ask the magical texts a question..." : "Cast a spell or ask a question..."} 
-                className="w-full bg-white border-none rounded-2xl px-5 py-3.5 min-h-[52px] max-h-[150px] focus:outline-none focus:ring-1 focus:ring-primary/50 text-black resize-none font-sans leading-relaxed transition-all placeholder:text-gray-500 relative z-10 flex items-center"
+                className="w-full bg-transparent border-none px-5 py-3.5 min-h-[52px] max-h-[150px] focus:outline-none focus:ring-0 text-foreground resize-none font-sans leading-relaxed transition-all placeholder:text-muted-foreground relative z-10 flex items-center shadow-none"
                 rows={1}
                 aria-label="Chat message input"
               />
@@ -424,12 +419,11 @@ export function Chat() {
             <Button 
               onClick={handleSend} 
               disabled={loading || (!input.trim() && tempFiles.length === 0)} 
-              className="h-[52px] shrink-0 rounded-2xl px-6 bg-primary hover:bg-primary shadow-[0_4px_15px_-3px_hsl(var(--primary)/0.6)] hover:shadow-[0_6px_20px_-3px_hsl(var(--primary)/0.8)] hover:-translate-y-0.5 transition-all duration-300 group border-none opacity-100"
-              style={{ backgroundColor: 'hsl(var(--primary))' }}
+              className="h-[52px] shrink-0 bg-transparent text-primary hover:text-primary/80 hover:bg-transparent shadow-none transition-all duration-300 group border-none opacity-100"
               aria-label="Cast spell"
             >
-              <span className="font-bold tracking-wider mr-2 text-white drop-shadow-md">Cast</span>
-              <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300 text-white drop-shadow-md" />
+              <span className="font-bold tracking-wider mr-2">Cast</span>
+              <Send size={24} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
             </Button>
           </div>
         </div>

@@ -12,8 +12,7 @@ function createWindow() {
         minHeight: 600,
         transparent: true,
         frame: false,
-        vibrancy: 'under-window',
-        visualEffectState: 'active',
+        hasShadow: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,

@@ -88,21 +88,20 @@ export function KnowledgeBase() {
           <Button 
             onClick={() => fileInputRef.current?.click()} 
             disabled={uploading} 
-            className="gap-2 shadow-sm rounded-full px-5 bg-primary text-white border-none hover:bg-primary/90 transition-all duration-300 opacity-100"
-            style={{ backgroundColor: 'hsl(var(--primary))' }}
+            className="gap-2 px-5 transition-all duration-300 opacity-100 bg-transparent text-primary hover:text-primary/80 border-none shadow-none"
           >
             {uploading ? (
-              <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+              <div className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin" />
             ) : (
-              <Upload size={18} className="text-white" />
+              <Upload size={18} />
             )}
-            <span className="text-white font-medium">{uploading ? 'Processing...' : 'Upload Document'}</span>
+            <span className="font-bold">{uploading ? 'Processing...' : 'Upload Document'}</span>
           </Button>
         </div>
       </div>
 
-      <div className="glass-panel shadow-sm rounded-2xl border border-border overflow-hidden">
-        <div className="p-4 border-b border-border bg-muted/20">
+      <div className="shadow-sm rounded-2xl overflow-hidden bg-transparent">
+        <div className="p-4 bg-transparent">
           <h3 className="font-semibold flex items-center gap-2 tracking-tight">
             <FileText size={18} className="text-primary" />
             Training Documents
@@ -111,7 +110,7 @@ export function KnowledgeBase() {
         
         <div className="p-6">
           {documents.length === 0 ? (
-            <div className="text-center py-16 flex flex-col items-center border-2 border-dashed border-border/50 rounded-xl bg-black/20 backdrop-blur-sm relative overflow-hidden group">
+            <div className="text-center py-16 flex flex-col items-center border-none bg-transparent relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent pointer-events-none"></div>
               <div className="relative w-40 h-40 mb-4 opacity-90 z-10 group-hover:scale-105 transition-transform duration-700">
                 <MagicBookIllustration className="w-full h-full object-contain drop-shadow-2xl" />
@@ -128,19 +127,18 @@ export function KnowledgeBase() {
                 <Card 
                   key={doc.id} 
                   animationMode={index % 2 === 0 ? 'pulse' : 'wave'} 
-                  className="flex flex-col p-5 rounded-xl border border-border/20 bg-background/60 hover:bg-background/80 hover:border-primary/40 transition-all duration-300 group backdrop-blur-md hover:-translate-y-1 hover:shadow-[0_8px_25px_-5px_hsl(var(--primary)/0.25)] focus-visible:outline-none relative overflow-hidden"
+                  className="flex flex-col p-5 rounded-xl bg-transparent transition-all duration-300 group backdrop-blur-md hover:-translate-y-1 focus-visible:outline-none relative overflow-hidden"
                   role="article"
                   aria-labelledby={`doc-title-${doc.id}`}
                   tabIndex={0}
                 >
                   {/* Subtle magic glow behind the card */}
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,_hsl(var(--primary)/0.05),_transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,_hsl(var(--primary)/0.05),_transparent_60%)] opacity-0 transition-opacity duration-700 pointer-events-none"></div>
 
                   <div className="flex items-start justify-between w-full relative z-10 -mt-2">
                     <div className="flex items-center gap-4 overflow-hidden flex-1 pr-4 mt-2">
-                      <div className="w-12 h-12 rounded-full bg-background border-2 border-primary/30 flex shrink-0 items-center justify-center group-hover:border-primary/60 group-hover:bg-primary/10 transition-all duration-300 group-hover:scale-105 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_hsl(var(--primary)/0.2)_0%,_transparent_70%)]"></div>
-                        <Scroll size={20} className="text-primary relative z-10" />
+                      <div className="flex shrink-0 items-center justify-center relative overflow-hidden">
+                        <Scroll size={28} className="text-primary relative z-10" />
                       </div>
                       
                       <div className="flex flex-col justify-center min-w-0 flex-1">
@@ -148,7 +146,7 @@ export function KnowledgeBase() {
                           {doc.filename}
                         </p>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[9px] font-bold text-secondary bg-secondary/10 border border-secondary/20 px-2 py-0.5 rounded-full uppercase tracking-widest shadow-[inset_0_0_5px_hsl(var(--secondary)/0.1)]">
+                          <span className="text-[9px] font-bold text-secondary bg-transparent border-none px-0 py-0.5 rounded-none uppercase tracking-widest shadow-none">
                             {doc.file_type.replace('.', '')}
                           </span>
                           <div className="w-1 h-1 rounded-full bg-border/50"></div>
@@ -165,7 +163,7 @@ export function KnowledgeBase() {
                       <Button 
                         variant="ghost" 
                         size="icon" 
-                        className="h-8 w-8 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded-full focus-visible:opacity-100 border border-transparent hover:border-primary/20 bg-background/50 backdrop-blur-sm"
+                        className="h-8 w-8 text-muted-foreground hover:text-primary bg-transparent transition-colors rounded-none focus-visible:opacity-100 border-none shadow-none"
                         onClick={() => window.open(`http://localhost:3001/api/documents/preview/${doc.id}`, '_blank')}
                         title="Preview Spell"
                         aria-label={`Preview ${doc.filename}`}
@@ -175,7 +173,7 @@ export function KnowledgeBase() {
                       <Button 
                         variant="ghost" 
                         size="icon" 
-                        className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/20 transition-colors rounded-full focus-visible:opacity-100 border border-transparent hover:border-destructive/20 bg-background/50 backdrop-blur-sm"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive bg-transparent transition-colors rounded-none focus-visible:opacity-100 border-none shadow-none"
                         onClick={() => handleDeleteDoc(doc.id)}
                         title="Incinerate Scroll"
                         aria-label={`Delete ${doc.filename}`}

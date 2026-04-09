@@ -3,112 +3,212 @@
 @tailwind utilities;
 
 @layer base {
-  :root, .theme-ravenclaw {
-    /* Ravenclaw: Blue & Bronze (Dark Academia) */
-    --background: 222 47% 6%; /* Deep night sky */
-    --foreground: 210 40% 98%;
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%; /* Ravenclaw Blue */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 45 93% 47%; /* Bronze */
-    --secondary-foreground: 0 0% 10%;
-    --muted: 217 32% 17%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217 91% 60%;
-    --accent-foreground: 210 40% 98%;
+  :root, .theme-ravenclaw.light {
+    /* Ravenclaw: Blue & Bronze (Dark Academia) - Light Mode */
+    --background: 221 33% 97%; /* #F5F7FB */
+    --foreground: 223 16% 17%; /* #252933 */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 223 16% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 223 16% 17%;
+    --primary: 219 45% 34%; /* #304B7E */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 29 60% 50%; /* #CD7F32 */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 225 15% 48%; /* #6B748C */
+    --muted-foreground: 225 15% 48%;
+    --accent: 219 79% 66%; /* #6495ED */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 32% 17%;
-    --input: 217 32% 17%;
-    --ring: 217 91% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 38% 87%; /* #D3DCEA */
+    --input: 217 38% 87%;
+    --ring: 219 45% 34%;
     --radius: 0.75rem;
   }
 
-  .theme-gryffindor {
-    /* Gryffindor: Red & Gold */
-    --background: 350 40% 6%; /* Deep crimson night */
-    --foreground: 210 40% 98%;
-    --card: 350 40% 8%;
-    --card-foreground: 210 40% 98%;
-    --popover: 350 40% 8%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 348 83% 47%; /* Gryffindor Red */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 45 93% 47%; /* Gold */
-    --secondary-foreground: 0 0% 10%;
-    --muted: 350 32% 17%;
-    --muted-foreground: 350 20% 65%;
-    --accent: 348 83% 47%;
-    --accent-foreground: 210 40% 98%;
+  .theme-ravenclaw.dark {
+    /* Ravenclaw - Dark Mode */
+    --background: 221 35% 9%; /* #0F1420 */
+    --foreground: 223 45% 94%; /* #E9EDF7 */
+    --card: 222 36% 15%; /* #182033 */
+    --card-foreground: 223 45% 94%;
+    --popover: 222 36% 15%;
+    --popover-foreground: 223 45% 94%;
+    --primary: 220 42% 41%; /* #3D5A94 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 60% 60%; /* #D49A5E */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 225 31% 74%; /* #A9B3D1 */
+    --muted-foreground: 225 31% 74%;
+    --accent: 220 37% 54%; /* #5A7AB8 */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 350 32% 17%;
-    --input: 350 32% 17%;
-    --ring: 348 83% 47%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 33% 26%; /* #2D3A59 */
+    --input: 222 33% 26%;
+    --ring: 220 42% 41%;
     --radius: 0.75rem;
   }
 
-  .theme-slytherin {
-    /* Slytherin: Green & Silver */
-    --background: 140 40% 6%; /* Deep dungeon green */
-    --foreground: 210 40% 98%;
-    --card: 140 40% 8%;
-    --card-foreground: 210 40% 98%;
-    --popover: 140 40% 8%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 142 71% 35%; /* Slytherin Green */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 0 0% 75%; /* Silver */
-    --secondary-foreground: 0 0% 10%;
-    --muted: 140 32% 17%;
-    --muted-foreground: 140 20% 65%;
-    --accent: 142 71% 35%;
-    --accent-foreground: 210 40% 98%;
+  .theme-gryffindor.light {
+    /* Gryffindor: Red & Gold - Light Mode */
+    --background: 38 33% 95%; /* #F8F5F0 */
+    --foreground: 45 8% 16%; /* #2C2A25 */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 45 8% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 45 8% 16%;
+    --primary: 0 100% 23%; /* #740000 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 46 64% 53%; /* #D4AF37 */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 26 7% 38%; /* #665E58 */
+    --muted-foreground: 26 7% 38%;
+    --accent: 0 68% 41%; /* #B22222 */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 140 32% 17%;
-    --input: 140 32% 17%;
-    --ring: 142 71% 35%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 20% 85%; /* #E0D8D0 */
+    --input: 30 20% 85%;
+    --ring: 0 100% 23%;
     --radius: 0.75rem;
   }
 
-  .theme-hufflepuff {
-    /* Hufflepuff: Yellow & Black */
-    --background: 40 40% 6%; /* Deep earthy brown/black */
-    --foreground: 210 40% 98%;
-    --card: 40 40% 8%;
-    --card-foreground: 210 40% 98%;
-    --popover: 40 40% 8%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 45 93% 47%; /* Hufflepuff Yellow */
+  .theme-gryffindor.dark {
+    /* Gryffindor - Dark Mode */
+    --background: 0 24% 8%; /* #1A1010 */
+    --foreground: 0 13% 90%; /* #EAE2E2 */
+    --card: 0 26% 13%; /* #291818 */
+    --card-foreground: 0 13% 90%;
+    --popover: 0 26% 13%;
+    --popover-foreground: 0 13% 90%;
+    --primary: 0 64% 38%; /* #9F2323 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 44 72% 64%; /* #E5C15F */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 11% 65%; /* #B09A9A */
+    --muted-foreground: 0 11% 65%;
+    --accent: 0 54% 51%; /* #C83C3C */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 29% 20%; /* #422424 */
+    --input: 0 29% 20%;
+    --ring: 0 64% 38%;
+    --radius: 0.75rem;
+  }
+
+  .theme-slytherin.light {
+    /* Slytherin: Green & Silver - Light Mode */
+    --background: 144 20% 95%; /* #F0F5F2 */
+    --foreground: 144 9% 11%; /* #1A1F1C */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 144 9% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 144 9% 11%;
+    --primary: 152 70% 17%; /* #0D4B2E */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 75%; /* #C0C0C0 */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 152 8% 38%; /* #596861 */
+    --muted-foreground: 152 8% 38%;
+    --accent: 120 61% 34%; /* #228B22 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 147 16% 83%; /* #D1DAD5 */
+    --input: 147 16% 83%;
+    --ring: 152 70% 17%;
+    --radius: 0.75rem;
+  }
+
+  .theme-slytherin.dark {
+    /* Slytherin - Dark Mode */
+    --background: 147 30% 6%; /* #0B1410 */
+    --foreground: 147 11% 91%; /* #E6EBE8 */
+    --card: 146 28% 10%; /* #122018 */
+    --card-foreground: 147 11% 91%;
+    --popover: 146 28% 10%;
+    --popover-foreground: 147 11% 91%;
+    --primary: 154 57% 24%; /* #1A5F41 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 160 4% 82%; /* #D0D5D3 */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 153 6% 68%; /* #A8B3AE */
+    --muted-foreground: 153 6% 68%;
+    --accent: 153 45% 33%; /* #2E7A57 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 153 23% 18%; /* #243A2F */
+    --input: 153 23% 18%;
+    --ring: 154 57% 24%;
+    --radius: 0.75rem;
+  }
+
+  .theme-hufflepuff.light {
+    /* Hufflepuff: Yellow & Black - Light Mode */
+    --background: 48 100% 96%; /* #FFFBEB */
+    --foreground: 60 5% 19%; /* #33332E */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 60 5% 19%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 60 5% 19%;
+    --primary: 49 75% 52%; /* #E2C028 */
     --primary-foreground: 0 0% 10%;
-    --secondary: 0 0% 20%; /* Black/Dark Gray */
-    --secondary-foreground: 210 40% 98%;
-    --muted: 40 32% 17%;
-    --muted-foreground: 40 20% 65%;
-    --accent: 45 93% 47%;
+    --secondary: 0 0% 25%; /* #3F3F3F */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 49 8% 42%; /* #737063 */
+    --muted-foreground: 49 8% 42%;
+    --accent: 49 83% 67%; /* #F0D868 */
     --accent-foreground: 0 0% 10%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 40 32% 17%;
-    --input: 40 32% 17%;
-    --ring: 45 93% 47%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 46 45% 85%; /* #EAE2C8 */
+    --input: 46 45% 85%;
+    --ring: 49 75% 52%;
+    --radius: 0.75rem;
+  }
+
+  .theme-hufflepuff.dark {
+    /* Hufflepuff - Dark Mode */
+    --background: 55 27% 8%; /* #1A180F */
+    --foreground: 51 34% 91%; /* #F2EEDF */
+    --card: 53 26% 13%; /* #292618 */
+    --card-foreground: 51 34% 91%;
+    --popover: 53 26% 13%;
+    --popover-foreground: 51 34% 91%;
+    --primary: 49 68% 49%; /* #D4B328 */
+    --primary-foreground: 0 0% 10%;
+    --secondary: 60 4% 76%; /* #C6C6C0 */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 45 13% 67%; /* #B8B29F */
+    --muted-foreground: 45 13% 67%;
+    --accent: 48 73% 62%; /* #E6C958 */
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 53 25% 21%; /* #443F29 */
+    --input: 53 25% 21%;
+    --ring: 49 68% 49%;
     --radius: 0.75rem;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-transparent;
+    border: none !important;
   }
   body {
     @apply bg-transparent text-foreground font-serif tracking-normal transition-colors duration-500;
-    background-color: hsl(var(--background) / 1); /* solid theme background since MagicalBackground handles ambient light */
+    background-color: transparent; /* Allow Electron transparent window to show through */
     min-height: 100vh;
     overflow: hidden; /* To prevent scrollbar on body */
+    /* Add border to the entire body/window for Electron */
+    border-radius: 12px;
+    box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 30px 100px rgba(0, 0, 0, 0.4);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -132,12 +232,12 @@
 }
 
 .glass-panel {
-  background: hsl(var(--background) / 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: var(--radius);
-  transition: background-color 0.5s ease, border-color 0.5s ease;
-  /* The solid border is removed so it doesn't conflict with the glowing conic border */
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  /* border-radius: var(--radius); */
+  /* transition: background-color 0.5s ease, border-color 0.5s ease; */
+  box-shadow: none !important;
 }
 
 /* Custom scrollbar for Electron */
@@ -165,81 +265,6 @@
 .sci-fi-card {
   --mouse-x: -1000px;
   --mouse-y: -1000px;
-}
-
-/* Moving Light Border Effect (Conic Gradient) */
-.sci-fi-card::after {
-  inset: -1px;
-  padding: 1px;
-  background: conic-gradient(
-    from var(--border-angle, 0deg) at 50% 50%,
-    transparent 0%,
-    hsl(var(--primary) / 0.1) 20%,
-    hsl(var(--primary) / 0.8) 40%,
-    hsl(var(--secondary) / 0.8) 50%,
-    hsl(var(--primary) / 0.8) 60%,
-    hsl(var(--primary) / 0.1) 80%,
-    transparent 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  /* Keep a subtle static border when not hovering, so the card has an outline */
-  background-color: rgba(255, 255, 255, 0.05);
-  opacity: 1; /* Always show the pseudo-element to display the default border */
-  will-change: opacity, transform;
-}
-
-/* Base Card Pseudo-elements for Glow and Border */
-.sci-fi-card::before,
-.sci-fi-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 0;
-  transition: opacity 0.5s ease;
-}
-
-.sci-fi-card:not(:hover)::after {
-  /* When not hovering, turn off the moving gradient and just show the solid subtle border */
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Ensure CSS Custom Property can be animated */
-@property --border-angle {
-  syntax: "<angle>";
-  inherits: true;
-  initial-value: 0turn;
-}
-
-@keyframes pulse-glow {
-  0%, 100% { filter: brightness(1) drop-shadow(0 0 5px hsl(var(--primary) / 0.3)); }
-  50% { filter: brightness(1.5) drop-shadow(0 0 15px hsl(var(--secondary) / 0.6)); }
-}
-
-@keyframes border-rotate {
-  0% { --border-angle: 0turn; }
-  100% { --border-angle: 1turn; }
-}
-
-.sci-fi-card:hover::after {
-  opacity: 1;
-  animation: border-rotate 3s linear infinite;
-}
-
-/* Animation Modes (Overrides) */
-.sci-fi-card.anim-scan:hover::after {
-  animation: border-rotate 3s linear infinite;
-}
-
-.sci-fi-card.anim-pulse:hover::after {
-  animation: border-rotate 4s ease-in-out infinite, pulse-glow 2.5s ease-in-out infinite;
-}
-
-.sci-fi-card.anim-wave:hover::after {
-  animation: border-rotate 1.5s linear infinite;
 }
 
 /* ========================================================= */

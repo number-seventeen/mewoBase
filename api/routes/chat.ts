@@ -285,17 +285,32 @@ ${relevantContext}
     }
     messages.push(userMessage);
 
-    let response = await ollama.chat({
-      model: targetModel,
-      messages: messages,
-      tools: tools,
-      stream: false
-    });
-
-    const executedTools = [];
+    let response;
+    let executedTools: any[] = [];
+    
+    try {
+      response = await ollama.chat({
+        model: targetModel,
+        messages: messages,
+        tools: tools,
+        stream: false
+      });
+    } catch (err: any) {
+      // Fallback if model doesn't support tools
+      if (err.message && err.message.includes('does not support tools')) {
+        console.warn(`Model ${targetModel} does not support tools. Retrying without tools...`);
+        response = await ollama.chat({
+          model: targetModel,
+          messages: messages,
+          stream: false
+        });
+      } else {
+        throw err;
+      }
+    }
 
     // Loop to handle tool calls
-    while (response.message.tool_calls && response.message.tool_calls.length > 0) {
+    while (response.message && response.message.tool_calls && response.message.tool_calls.length > 0) {
       messages.push(response.message);
 
       for (const tool of response.message.tool_calls) {

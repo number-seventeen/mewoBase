@@ -41,21 +41,21 @@ const Card = React.forwardRef<
         // Reset tilt smoothly
         cardRef.current.style.setProperty('--rotate-x', '0deg');
         cardRef.current.style.setProperty('--rotate-y', '0deg');
-        // Hide glow by moving it out of bounds
-        cardRef.current.style.setProperty('--mouse-x', `-1000px`);
-        cardRef.current.style.setProperty('--mouse-y', `-1000px`);
+        // Instead of instantly teleporting the mouse coordinate which breaks any local glow effects,
+        // we rely on CSS opacity transitions to hide the glow smoothly.
+        // We do NOT change --mouse-x and --mouse-y to -1000px anymore to avoid instant jumps.
       }
     });
   }, []);
 
   return (
-    <div className="sci-fi-card-container w-full h-full" style={{ perspective: '1200px' }}>
+    <div className={cn("sci-fi-card-container w-full", className)} style={{ perspective: '1200px' }}>
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className={cn(
-          "sci-fi-card rounded-xl text-card-foreground shadow-sm glass-panel relative group transition-transform duration-300 ease-out will-change-transform",
+          "sci-fi-card rounded-xl text-card-foreground shadow-sm relative group transition-transform duration-300 ease-out will-change-transform bg-transparent border-none",
           animationMode !== 'none' && `anim-${animationMode}`,
           className
         )}
@@ -81,7 +81,7 @@ const CardHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    className={cn("flex flex-col space-y-1.5 p-6 rounded-t-xl mb-6 bg-transparent", className)}
     {...props}
   />
 ))
@@ -118,7 +118,7 @@ const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+  <div ref={ref} className={cn("p-6 pt-0 bg-transparent", className)} {...props} />
 ))
 CardContent.displayName = "CardContent"
 
